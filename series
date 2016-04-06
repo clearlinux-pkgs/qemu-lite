@@ -5,6 +5,8 @@ qemu-0003-disable-audio-bt-display-i2c-pcmcia-usb.patch
 qemu-0004-disable-kvmvapic.patch
 qemu-0005-make-initialization-execute-in-parallel.patch
 qemu-0007-optimize-PAM.patch
+qemu-0008-support-up-uncompressed-kernel-skip-bios.patch
+qemu-0009-support-smp-uncompressed-kernel-skip-bios.patch
 cores-default.patch
 #0001-Use-run-lock.patch
 0001-Use-widechar-ncurses.patch
@@ -20,3 +22,4 @@ cores-default.patch
 #cve-2016-2197.patch
 #0011-usb-check-page-select-value-while-processing-iTD.patch
 timer.patch
+

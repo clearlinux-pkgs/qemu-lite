@@ -1,17 +1,17 @@
-commit 34a4831835d8b221f4afb8ec29b511c133228791
+commit 6e1d8f9cf7123730f62c47392f2334c6f0fa5b6c
 Author: Anthony Xu <anthony.xu@intel.com>
-Date:   Mon Mar 14 15:08:31 2016 -0700
+Date:   Wed Apr 6 11:15:17 2016 -0700
 
-    disable kvmvapic, most of servers have flexpriority VT technology,
-    kvmvapic is not needed.
+        disable kvmvapic, most of servers have flexpriority VT technology,
+        kvmvapic is not needed.
     
-    Signed-off-by: Anthony Xu <anthony.xu@intel.com>
+        Signed-off-by: Anthony Xu <anthony.xu@intel.com>
 
 diff --git a/hw/intc/apic_common.c b/hw/intc/apic_common.c
-index 659f377..bb726a7 100644
+index 4abe145..5ae1753 100644
 --- a/hw/intc/apic_common.c
 +++ b/hw/intc/apic_common.c
-@@ -413,8 +413,10 @@ static const VMStateDescription vmstate_apic_common = {
+@@ -414,8 +414,10 @@ static const VMStateDescription vmstate_apic_common = {
  static Property apic_properties_common[] = {
      DEFINE_PROP_UINT8("id", APICCommonState, id, -1),
      DEFINE_PROP_UINT8("version", APICCommonState, version, 0x14),

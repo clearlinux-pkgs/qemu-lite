@@ -1,16 +1,16 @@
-commit 6d67fb0786d232c7c0e60da3ca2f4e7db80d88f6
+commit 7f8d3cdadba0a080be257ea82e0461a1b60888b1
 Author: Anthony Xu <anthony.xu@intel.com>
-Date:   Mon Mar 14 15:25:54 2016 -0700
+Date:   Wed Apr 6 11:17:14 2016 -0700
 
-    make initialization threads execute in parallel
+        make initialization threads execute in parallel
     
-    Signed-off-by: Anthony Xu <anthony.xu@intel.com>
+        Signed-off-by: Anthony Xu <anthony.xu@intel.com>
 
 diff --git a/cpus.c b/cpus.c
-index 9592163..3ecc200 100644
+index cbeb1f6..4c081d0 100644
 --- a/cpus.c
 +++ b/cpus.c
-@@ -1013,7 +1013,7 @@ static void qemu_tcg_wait_io_event(CPUState *cpu)
+@@ -1027,7 +1027,7 @@ static void qemu_tcg_wait_io_event(CPUState *cpu)
  static void qemu_kvm_wait_io_event(CPUState *cpu)
  {
      while (cpu_thread_is_idle(cpu)) {
@@ -19,7 +19,7 @@ index 9592163..3ecc200 100644
      }
  
      qemu_kvm_eat_signals(cpu);
-@@ -1033,6 +1033,11 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
+@@ -1047,6 +1047,11 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
      cpu->can_do_io = 1;
      current_cpu = cpu;
  
@@ -31,7 +31,7 @@ index 9592163..3ecc200 100644
      r = kvm_init_vcpu(cpu);
      if (r < 0) {
          fprintf(stderr, "kvm_init_vcpu failed: %s\n", strerror(-r));
-@@ -1041,10 +1046,7 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
+@@ -1055,10 +1060,7 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
  
      qemu_kvm_init_cpu_signals(cpu);
  
@@ -43,7 +43,7 @@ index 9592163..3ecc200 100644
      while (1) {
          if (cpu_can_run(cpu)) {
              r = kvm_cpu_exec(cpu);
-@@ -1338,7 +1340,9 @@ static void qemu_kvm_start_vcpu(CPUState *cpu)
+@@ -1352,7 +1354,9 @@ static void qemu_kvm_start_vcpu(CPUState *cpu)
      char thread_name[VCPU_THREAD_NAME_SIZE];
  
      cpu->thread = g_malloc0(sizeof(QemuThread));
@@ -54,10 +54,10 @@ index 9592163..3ecc200 100644
      snprintf(thread_name, VCPU_THREAD_NAME_SIZE, "CPU %d/KVM",
               cpu->cpu_index);
 diff --git a/include/qom/cpu.h b/include/qom/cpu.h
-index 1df7cb4..c87783c 100644
+index b7a10f7..859baa9 100644
 --- a/include/qom/cpu.h
 +++ b/include/qom/cpu.h
-@@ -286,6 +286,7 @@ struct CPUState {
+@@ -283,6 +283,7 @@ struct CPUState {
      uint32_t host_tid;
      bool running;
      struct QemuCond *halt_cond;
@@ -66,10 +66,10 @@ index 1df7cb4..c87783c 100644
      bool created;
      bool stop;
 diff --git a/kvm-all.c b/kvm-all.c
-index a65e73f..38f283d 100644
+index e7b66df..760b5d0 100644
 --- a/kvm-all.c
 +++ b/kvm-all.c
-@@ -1795,7 +1795,7 @@ static void do_kvm_cpu_synchronize_post_reset(void *arg)
+@@ -1782,7 +1782,7 @@ static void do_kvm_cpu_synchronize_post_reset(void *arg)
  
  void kvm_cpu_synchronize_post_reset(CPUState *cpu)
  {
@@ -78,7 +78,7 @@ index a65e73f..38f283d 100644
  }
  
  static void do_kvm_cpu_synchronize_post_init(void *arg)
-@@ -1808,7 +1808,7 @@ static void do_kvm_cpu_synchronize_post_init(void *arg)
+@@ -1795,7 +1795,7 @@ static void do_kvm_cpu_synchronize_post_init(void *arg)
  
  void kvm_cpu_synchronize_post_init(CPUState *cpu)
  {
@@ -87,7 +87,7 @@ index a65e73f..38f283d 100644
  }
  
  int kvm_cpu_exec(CPUState *cpu)
-@@ -1823,7 +1823,7 @@ int kvm_cpu_exec(CPUState *cpu)
+@@ -1810,7 +1810,7 @@ int kvm_cpu_exec(CPUState *cpu)
          return EXCP_HLT;
      }
  
@@ -96,7 +96,7 @@ index a65e73f..38f283d 100644
  
      do {
          MemTxAttrs attrs;
-@@ -1936,7 +1936,7 @@ int kvm_cpu_exec(CPUState *cpu)
+@@ -1923,7 +1923,7 @@ int kvm_cpu_exec(CPUState *cpu)
          }
      } while (ret == 0);
  

@@ -1,15 +1,15 @@
-commit 1c0029386d365b0d9c3e55a4a885cc4773a5075c
+commit eda2a8dec935f40e4cc293d0409efc8caac8adee
 Author: Anthony Xu <anthony.xu@intel.com>
-Date:   Mon Mar 14 14:13:38 2016 -0700
+Date:   Wed Apr 6 11:12:09 2016 -0700
 
-    Add E820 PRAM type, that nvdimm can be detected through E820
+        Add E820 PRAM type, that nvdimm can be detected through E820
     
-    Author: Haozhong Zhang <haozhong.zhang@intel.com>
+        Author: Haozhong Zhang <haozhong.zhang@intel.com>
     
-    Signed-off-by: Anthony Xu <anthony.xu@intel.com>
+        Signed-off-by: Anthony Xu <anthony.xu@intel.com>
 
 diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index 0aeefd2..c82cc7a 100644
+index 2ac97c4..8f0e3ea 100644
 --- a/hw/i386/pc.c
 +++ b/hw/i386/pc.c
 @@ -67,6 +67,7 @@
@@ -20,7 +20,7 @@ index 0aeefd2..c82cc7a 100644
  
  /* debug PC/ISA interrupts */
  //#define DEBUG_IRQ
-@@ -1596,15 +1597,17 @@ static void pc_dimm_plug(HotplugHandler *hotplug_dev,
+@@ -1595,15 +1596,17 @@ static void pc_dimm_plug(HotplugHandler *hotplug_dev,
      PCMachineState *pcms = PC_MACHINE(hotplug_dev);
      PCMachineClass *pcmc = PC_MACHINE_GET_CLASS(pcms);
      PCDIMMDevice *dimm = PC_DIMM(dev);
@@ -39,7 +39,7 @@ index 0aeefd2..c82cc7a 100644
          error_setg(&local_err,
                     "memory hotplug is not enabled: missing acpi device");
          goto out;
-@@ -1615,6 +1618,28 @@ static void pc_dimm_plug(HotplugHandler *hotplug_dev,
+@@ -1614,6 +1617,28 @@ static void pc_dimm_plug(HotplugHandler *hotplug_dev,
          goto out;
      }
  
@@ -69,10 +69,10 @@ index 0aeefd2..c82cc7a 100644
      hhc->plug(HOTPLUG_HANDLER(pcms->acpi_dev), dev, &error_abort);
  out:
 diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index 8b3546e..e3f8cd8 100644
+index 96f0b66..a5fd27e 100644
 --- a/include/hw/i386/pc.h
 +++ b/include/hw/i386/pc.h
-@@ -346,6 +346,7 @@ uint16_t pvpanic_port(void);
+@@ -351,6 +351,7 @@ uint16_t pvpanic_port(void);
  #define E820_ACPI       3
  #define E820_NVS        4
  #define E820_UNUSABLE   5

@@ -4,9 +4,9 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 3
-URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc0.tar.bz2
-Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc0.tar.bz2
+Release  : 4
+URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
+Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Summary  : OpenBIOS development utilities
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ GPL-3.0 LGPL-2.0+ LGPL-2.1 LGPL-3.0 MIT
@@ -30,9 +30,11 @@ Patch4: qemu-0003-disable-audio-bt-display-i2c-pcmcia-usb.patch
 Patch5: qemu-0004-disable-kvmvapic.patch
 Patch6: qemu-0005-make-initialization-execute-in-parallel.patch
 Patch7: qemu-0007-optimize-PAM.patch
-Patch8: cores-default.patch
-Patch9: 0001-Use-widechar-ncurses.patch
-Patch10: timer.patch
+Patch8: qemu-0008-support-up-uncompressed-kernel-skip-bios.patch
+Patch9: qemu-0009-support-smp-uncompressed-kernel-skip-bios.patch
+Patch10: cores-default.patch
+Patch11: 0001-Use-widechar-ncurses.patch
+Patch12: timer.patch
 
 %description
 This package contains the OpenBIOS development utilities.
@@ -68,7 +70,7 @@ data components for the qemu-lite package.
 
 
 %prep
-%setup -q -n qemu-2.6.0-rc0
+%setup -q -n qemu-2.6.0-rc1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -79,6 +81,8 @@ data components for the qemu-lite package.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
+%patch12 -p1
 
 %build
 %configure --disable-static --disable-sdl \
