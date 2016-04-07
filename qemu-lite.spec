@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 4
+Release  : 5
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Summary  : OpenBIOS development utilities
@@ -123,108 +123,120 @@ data components for the qemu-lite package.
 --disable-qom-cast-debug \
 --enable-kvm \
 --target-list='i386-softmmu x86_64-softmmu i386-linux-user x86_64-linux-user' \
---extra-cflags="-fno-semantic-interposition -O3 -falign-functions=32"
+--extra-cflags="-fno-semantic-interposition -O3 -falign-functions=32" \
+--datadir=/usr/share/qemu-lite \
+--libdir=/usr/lib64/qemu-lite \
+--libexecdir=/usr/libexec/qemu-lite
 make V=1  %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 %make_install
+## make_install_append content
+for file in %{buildroot}/usr/bin/*
+do
+dir=$(dirname "$file")
+bin=$(basename "$file")
+new=$(echo "$bin"|sed -e 's/qemu-/qemu-lite-/g' -e 's/ivshmem-/ivshmem-lite-/g')
+mv "$file" "$dir/$new"
+done
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/ivshmem-client
-/usr/bin/ivshmem-server
-/usr/bin/qemu-ga
-/usr/bin/qemu-i386
-/usr/bin/qemu-img
-/usr/bin/qemu-io
-/usr/bin/qemu-nbd
-/usr/bin/qemu-system-i386
-/usr/bin/qemu-system-x86_64
-/usr/bin/qemu-x86_64
-/usr/libexec/qemu-bridge-helper
+/usr/bin/ivshmem-lite-client
+/usr/bin/ivshmem-lite-server
+/usr/bin/qemu-lite-ga
+/usr/bin/qemu-lite-i386
+/usr/bin/qemu-lite-img
+/usr/bin/qemu-lite-io
+/usr/bin/qemu-lite-nbd
+/usr/bin/qemu-lite-system-i386
+/usr/bin/qemu-lite-system-x86_64
+/usr/bin/qemu-lite-x86_64
+/usr/libexec/qemu-lite/qemu-bridge-helper
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/qemu/QEMU,cgthree.bin
-/usr/share/qemu/QEMU,tcx.bin
-/usr/share/qemu/acpi-dsdt.aml
-/usr/share/qemu/bamboo.dtb
-/usr/share/qemu/bios-256k.bin
-/usr/share/qemu/bios.bin
-/usr/share/qemu/efi-e1000.rom
-/usr/share/qemu/efi-eepro100.rom
-/usr/share/qemu/efi-ne2k_pci.rom
-/usr/share/qemu/efi-pcnet.rom
-/usr/share/qemu/efi-rtl8139.rom
-/usr/share/qemu/efi-virtio.rom
-/usr/share/qemu/keymaps/ar
-/usr/share/qemu/keymaps/bepo
-/usr/share/qemu/keymaps/common
-/usr/share/qemu/keymaps/cz
-/usr/share/qemu/keymaps/da
-/usr/share/qemu/keymaps/de
-/usr/share/qemu/keymaps/de-ch
-/usr/share/qemu/keymaps/en-gb
-/usr/share/qemu/keymaps/en-us
-/usr/share/qemu/keymaps/es
-/usr/share/qemu/keymaps/et
-/usr/share/qemu/keymaps/fi
-/usr/share/qemu/keymaps/fo
-/usr/share/qemu/keymaps/fr
-/usr/share/qemu/keymaps/fr-be
-/usr/share/qemu/keymaps/fr-ca
-/usr/share/qemu/keymaps/fr-ch
-/usr/share/qemu/keymaps/hr
-/usr/share/qemu/keymaps/hu
-/usr/share/qemu/keymaps/is
-/usr/share/qemu/keymaps/it
-/usr/share/qemu/keymaps/ja
-/usr/share/qemu/keymaps/lt
-/usr/share/qemu/keymaps/lv
-/usr/share/qemu/keymaps/mk
-/usr/share/qemu/keymaps/modifiers
-/usr/share/qemu/keymaps/nl
-/usr/share/qemu/keymaps/nl-be
-/usr/share/qemu/keymaps/no
-/usr/share/qemu/keymaps/pl
-/usr/share/qemu/keymaps/pt
-/usr/share/qemu/keymaps/pt-br
-/usr/share/qemu/keymaps/ru
-/usr/share/qemu/keymaps/sl
-/usr/share/qemu/keymaps/sv
-/usr/share/qemu/keymaps/th
-/usr/share/qemu/keymaps/tr
-/usr/share/qemu/kvmvapic.bin
-/usr/share/qemu/linuxboot.bin
-/usr/share/qemu/multiboot.bin
-/usr/share/qemu/openbios-ppc
-/usr/share/qemu/openbios-sparc32
-/usr/share/qemu/openbios-sparc64
-/usr/share/qemu/palcode-clipper
-/usr/share/qemu/petalogix-ml605.dtb
-/usr/share/qemu/petalogix-s3adsp1800.dtb
-/usr/share/qemu/ppc_rom.bin
-/usr/share/qemu/pxe-e1000.rom
-/usr/share/qemu/pxe-eepro100.rom
-/usr/share/qemu/pxe-ne2k_pci.rom
-/usr/share/qemu/pxe-pcnet.rom
-/usr/share/qemu/pxe-rtl8139.rom
-/usr/share/qemu/pxe-virtio.rom
-/usr/share/qemu/qemu-icon.bmp
-/usr/share/qemu/qemu_logo_no_text.svg
-/usr/share/qemu/s390-ccw.img
-/usr/share/qemu/sgabios.bin
-/usr/share/qemu/slof.bin
-/usr/share/qemu/spapr-rtas.bin
-/usr/share/qemu/trace-events
-/usr/share/qemu/u-boot.e500
-/usr/share/qemu/vgabios-cirrus.bin
-/usr/share/qemu/vgabios-qxl.bin
-/usr/share/qemu/vgabios-stdvga.bin
-/usr/share/qemu/vgabios-virtio.bin
-/usr/share/qemu/vgabios-vmware.bin
-/usr/share/qemu/vgabios.bin
+/usr/share/qemu-lite/qemu/QEMU,cgthree.bin
+/usr/share/qemu-lite/qemu/QEMU,tcx.bin
+/usr/share/qemu-lite/qemu/acpi-dsdt.aml
+/usr/share/qemu-lite/qemu/bamboo.dtb
+/usr/share/qemu-lite/qemu/bios-256k.bin
+/usr/share/qemu-lite/qemu/bios.bin
+/usr/share/qemu-lite/qemu/efi-e1000.rom
+/usr/share/qemu-lite/qemu/efi-eepro100.rom
+/usr/share/qemu-lite/qemu/efi-ne2k_pci.rom
+/usr/share/qemu-lite/qemu/efi-pcnet.rom
+/usr/share/qemu-lite/qemu/efi-rtl8139.rom
+/usr/share/qemu-lite/qemu/efi-virtio.rom
+/usr/share/qemu-lite/qemu/keymaps/ar
+/usr/share/qemu-lite/qemu/keymaps/bepo
+/usr/share/qemu-lite/qemu/keymaps/common
+/usr/share/qemu-lite/qemu/keymaps/cz
+/usr/share/qemu-lite/qemu/keymaps/da
+/usr/share/qemu-lite/qemu/keymaps/de
+/usr/share/qemu-lite/qemu/keymaps/de-ch
+/usr/share/qemu-lite/qemu/keymaps/en-gb
+/usr/share/qemu-lite/qemu/keymaps/en-us
+/usr/share/qemu-lite/qemu/keymaps/es
+/usr/share/qemu-lite/qemu/keymaps/et
+/usr/share/qemu-lite/qemu/keymaps/fi
+/usr/share/qemu-lite/qemu/keymaps/fo
+/usr/share/qemu-lite/qemu/keymaps/fr
+/usr/share/qemu-lite/qemu/keymaps/fr-be
+/usr/share/qemu-lite/qemu/keymaps/fr-ca
+/usr/share/qemu-lite/qemu/keymaps/fr-ch
+/usr/share/qemu-lite/qemu/keymaps/hr
+/usr/share/qemu-lite/qemu/keymaps/hu
+/usr/share/qemu-lite/qemu/keymaps/is
+/usr/share/qemu-lite/qemu/keymaps/it
+/usr/share/qemu-lite/qemu/keymaps/ja
+/usr/share/qemu-lite/qemu/keymaps/lt
+/usr/share/qemu-lite/qemu/keymaps/lv
+/usr/share/qemu-lite/qemu/keymaps/mk
+/usr/share/qemu-lite/qemu/keymaps/modifiers
+/usr/share/qemu-lite/qemu/keymaps/nl
+/usr/share/qemu-lite/qemu/keymaps/nl-be
+/usr/share/qemu-lite/qemu/keymaps/no
+/usr/share/qemu-lite/qemu/keymaps/pl
+/usr/share/qemu-lite/qemu/keymaps/pt
+/usr/share/qemu-lite/qemu/keymaps/pt-br
+/usr/share/qemu-lite/qemu/keymaps/ru
+/usr/share/qemu-lite/qemu/keymaps/sl
+/usr/share/qemu-lite/qemu/keymaps/sv
+/usr/share/qemu-lite/qemu/keymaps/th
+/usr/share/qemu-lite/qemu/keymaps/tr
+/usr/share/qemu-lite/qemu/kvmvapic.bin
+/usr/share/qemu-lite/qemu/linuxboot.bin
+/usr/share/qemu-lite/qemu/multiboot.bin
+/usr/share/qemu-lite/qemu/openbios-ppc
+/usr/share/qemu-lite/qemu/openbios-sparc32
+/usr/share/qemu-lite/qemu/openbios-sparc64
+/usr/share/qemu-lite/qemu/palcode-clipper
+/usr/share/qemu-lite/qemu/petalogix-ml605.dtb
+/usr/share/qemu-lite/qemu/petalogix-s3adsp1800.dtb
+/usr/share/qemu-lite/qemu/ppc_rom.bin
+/usr/share/qemu-lite/qemu/pxe-e1000.rom
+/usr/share/qemu-lite/qemu/pxe-eepro100.rom
+/usr/share/qemu-lite/qemu/pxe-ne2k_pci.rom
+/usr/share/qemu-lite/qemu/pxe-pcnet.rom
+/usr/share/qemu-lite/qemu/pxe-rtl8139.rom
+/usr/share/qemu-lite/qemu/pxe-virtio.rom
+/usr/share/qemu-lite/qemu/qemu-icon.bmp
+/usr/share/qemu-lite/qemu/qemu_logo_no_text.svg
+/usr/share/qemu-lite/qemu/s390-ccw.img
+/usr/share/qemu-lite/qemu/sgabios.bin
+/usr/share/qemu-lite/qemu/slof.bin
+/usr/share/qemu-lite/qemu/spapr-rtas.bin
+/usr/share/qemu-lite/qemu/trace-events
+/usr/share/qemu-lite/qemu/u-boot.e500
+/usr/share/qemu-lite/qemu/vgabios-cirrus.bin
+/usr/share/qemu-lite/qemu/vgabios-qxl.bin
+/usr/share/qemu-lite/qemu/vgabios-stdvga.bin
+/usr/share/qemu-lite/qemu/vgabios-virtio.bin
+/usr/share/qemu-lite/qemu/vgabios-vmware.bin
+/usr/share/qemu-lite/qemu/vgabios.bin
