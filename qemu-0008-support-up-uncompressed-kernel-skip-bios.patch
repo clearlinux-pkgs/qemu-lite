@@ -1,11 +1,11 @@
 commit 738e04e1d9022e9e0b963b0cbaf00a7c6b9d1d59
-Author: Anthony Xu <anthony.xu@intel.com>
+Author: Jim Kukunas <james.t.kukunas@linux.intel.com>
+Co-Authored-By: Anthony Xu <anthony.xu@intel.com>
 Date:   Wed Apr 6 11:30:01 2016 -0700
 
         skip bios and run uncompressed kernel,
         only support one vcpu due to the lack of mptable
     
-        Author: Chao Peng <chao.p.peng@linux.intel.com>
         Signed-off-by: Chao Peng <chao.p.peng@linux.intel.com>
 
 diff --git a/hw/i386/pc.c b/hw/i386/pc.c
