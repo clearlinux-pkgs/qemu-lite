@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 6
+Release  : 7
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Summary  : OpenBIOS development utilities
@@ -12,10 +12,13 @@ Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ GPL-3.0 LGPL-2.0+ LGPL-2.1 LGPL-3.0 MIT
 Requires: qemu-lite-bin
 Requires: qemu-lite-data
+BuildRequires : attr-dev
 BuildRequires : automake-dev
 BuildRequires : bison
 BuildRequires : flex
 BuildRequires : glib-dev
+BuildRequires : libcap-dev
+BuildRequires : libcap-ng-dev
 BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : m4
@@ -102,8 +105,9 @@ data components for the qemu-lite package.
 --disable-libiscsi \
 --disable-rbd \
 --disable-spice \
---disable-attr \
---disable-cap-ng \
+--enable-virtfs \
+--enable-cap-ng \
+--enable-attr \
 --disable-linux-aio \
 --disable-uuid \
 --disable-brlapi \
@@ -137,7 +141,7 @@ for file in %{buildroot}/usr/bin/*
 do
 dir=$(dirname "$file")
 bin=$(basename "$file")
-new=$(echo "$bin"|sed -e 's/qemu-/qemu-lite-/g' -e 's/ivshmem-/ivshmem-lite-/g')
+new=$(echo "$bin"|sed -e 's/qemu-/qemu-lite-/g' -e 's/ivshmem-/ivshmem-lite-/g' -e 's/virtfs-/virtfs-lite-/g')
 mv "$file" "$dir/$new"
 done
 ## make_install_append end
@@ -157,6 +161,7 @@ done
 /usr/bin/qemu-lite-system-i386
 /usr/bin/qemu-lite-system-x86_64
 /usr/bin/qemu-lite-x86_64
+/usr/bin/virtfs-lite-proxy-helper
 /usr/libexec/qemu-lite/qemu-bridge-helper
 
 %files data
