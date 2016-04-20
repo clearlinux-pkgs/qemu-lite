@@ -12,3 +12,6 @@ libtool-dev
 bison
 flex
 numactl-dev
+libcap-ng-dev
+libcap-dev
+attr-dev

@@ -15,8 +15,9 @@
 --disable-libiscsi
 --disable-rbd
 --disable-spice
---disable-attr
---disable-cap-ng
+--enable-virtfs
+--enable-cap-ng
+--enable-attr
 --disable-linux-aio
 --disable-uuid
 --disable-brlapi
