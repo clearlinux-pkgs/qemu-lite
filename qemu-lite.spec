@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 7
+Release  : 8
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
 Summary  : OpenBIOS development utilities
