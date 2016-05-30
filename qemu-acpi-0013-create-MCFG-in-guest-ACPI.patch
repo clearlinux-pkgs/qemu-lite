@@ -1,0 +1,41 @@
+commit 1da115c89bb8c771f0cd480502ee2b78a6b4c0ff
+Author: Anthony Xu <anthony.xu@intel.com>
+Date:   Thu May 19 22:44:24 2016 -0700
+
+    some VFs use extended PCI configuration space, guest ACPI MCFG
+    is needed to support extended PCI configuration space
+
+    Signed-off-by: Anthony Xu <anthony.xu@intel.com>
+
+diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
+index b3f472b..877450b 100644
+--- a/hw/i386/acpi-build.c
++++ b/hw/i386/acpi-build.c
+@@ -2653,7 +2653,7 @@ static bool acpi_get_mcfg(AcpiMcfgInfo *mcfg)
+     if (!o) {
+         return false;
+     }
+-    mcfg->mcfg_base = qint_get_int(qobject_to_qint(o));
++    mcfg->mcfg_base = MCH_HOST_BRIDGE_PCIEXBAR_DEFAULT;;
+     qobject_decref(o);
+ 
+     o = object_property_get_qobject(pci_host, PCIE_HOST_MCFG_SIZE, NULL);
+diff --git a/hw/pci-host/q35.c b/hw/pci-host/q35.c
+index 70f897e..4cfb772 100644
+--- a/hw/pci-host/q35.c
++++ b/hw/pci-host/q35.c
+@@ -420,7 +420,13 @@ static void mch_reset(DeviceState *qdev)
+     d->config[MCH_HOST_BRIDGE_ESMRAMC] = MCH_HOST_BRIDGE_ESMRAMC_DEFAULT;
+     d->wmask[MCH_HOST_BRIDGE_SMRAM] = MCH_HOST_BRIDGE_SMRAM_WMASK;
+     d->wmask[MCH_HOST_BRIDGE_ESMRAMC] = MCH_HOST_BRIDGE_ESMRAMC_WMASK;
+-
++    PCMachineState *pcms = PC_MACHINE(qdev_get_machine());
++    PCMachineClass *pcmc = PC_MACHINE_GET_CLASS(pcms);
++    if (pcmc->no_bios) {
++        pci_set_long(d->config + MCH_HOST_BRIDGE_PCIEXBAR, 
++	    MCH_HOST_BRIDGE_PCIEXBAR_DEFAULT | MCH_HOST_BRIDGE_PCIEXBAREN);
++        e820_add_entry(MCH_HOST_BRIDGE_PCIEXBAR_DEFAULT, MCH_HOST_BRIDGE_PCIEXBAR_MAX, E820_RESERVED);
++    }
+     mch_update(mch);
+ }
+ 

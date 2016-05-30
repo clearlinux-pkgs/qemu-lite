@@ -1,0 +1,34 @@
+commit 9480aa34f24afcd60c331bfcc071c410a378ecce
+Author: Haozhong Zhang <haozhong.zhang@intel.com>
+Date:   Thu Apr 28 10:33:14 2016 +0800
+
+    acpi: expose acpi_checksum()
+    
+    It will be used in later commits.
+    
+    Signed-off-by: Haozhong Zhang <haozhong.zhang@intel.com>
+
+diff --git a/hw/acpi/core.c b/hw/acpi/core.c
+index 6a2f452..6bcbd52 100644
+--- a/hw/acpi/core.c
++++ b/hw/acpi/core.c
+@@ -69,7 +69,7 @@ static void acpi_register_config(void)
+ 
+ opts_init(acpi_register_config);
+ 
+-static int acpi_checksum(const uint8_t *data, int len)
++int acpi_checksum(const uint8_t *data, int len)
+ {
+     int sum, i;
+     sum = 0;
+diff --git a/include/hw/acpi/acpi.h b/include/hw/acpi/acpi.h
+index e0978c8..5e74d47 100644
+--- a/include/hw/acpi/acpi.h
++++ b/include/hw/acpi/acpi.h
+@@ -201,4 +201,6 @@ struct AcpiSlicOem {
+ };
+ int acpi_get_slic_oem(AcpiSlicOem *oem);
+ 
++int acpi_checksum(const uint8_t *data, int len);
++
+ #endif /* !QEMU_HW_ACPI_H */

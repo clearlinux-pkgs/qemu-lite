@@ -4,12 +4,12 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 9
-URL      : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
-Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0-rc1.tar.bz2
-Summary  : OpenBIOS development utilities
+Release  : 10
+URL      : http://git.qemu.org/qemu.git/snapshot/bfc766d38e1fae5767d43845c15c79ac8fa6d6af.tar.gz#/qemu-2.6.0.tar.gz
+Source0  : http://git.qemu.org/qemu.git/snapshot/bfc766d38e1fae5767d43845c15c79ac8fa6d6af.tar.gz#/qemu-2.6.0.tar.gz
+Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ GPL-3.0 LGPL-2.0+ LGPL-2.1 LGPL-3.0 MIT
+License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ LGPL-2.0+ LGPL-2.1
 Requires: qemu-lite-bin
 Requires: qemu-lite-data
 BuildRequires : attr-dev
@@ -23,37 +23,28 @@ BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : m4
 BuildRequires : numactl-dev
-BuildRequires : pkgconfig(libpng)
+BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
 Patch1: configure.patch
-Patch2: qemu-0001-enable-nvdimm-e820-detection.patch
-Patch3: qemu-0002-cache-CPUID.patch
-Patch4: qemu-0003-disable-audio-bt-display-i2c-pcmcia-usb.patch
-Patch5: qemu-0004-disable-kvmvapic.patch
-Patch6: qemu-0005-make-initialization-execute-in-parallel.patch
-Patch7: qemu-0007-optimize-PAM.patch
-Patch8: qemu-0008-support-up-uncompressed-kernel-skip-bios.patch
-Patch9: qemu-0009-support-smp-uncompressed-kernel-skip-bios.patch
-Patch10: cores-default.patch
-Patch11: 0001-Use-widechar-ncurses.patch
-Patch12: timer.patch
+Patch2: qemu-acpi-0001-cache-cpuid.patch
+Patch3: qemu-acpi-0002-add-pc-full.patch
+Patch4: qemu-acpi-0003-load-from-kernel.patch
+Patch5: qemu-acpi-0004-boot-uncompressed-kernel.patch
+Patch6: qemu-acpi-0005-add-pc-lite-platform.patch
+Patch7: qemu-acpi-0006-make-platform-configurable.patch
+Patch8: qemu-acpi-0007-remove-find_i440fx.patch
+Patch9: qemu-acpi-0008-vcpu-initialization-in-parallel.patch
+Patch10: qemu-acpi-0009-expose-struct-BiosLinkerLoaderEntry.patch
+Patch11: qemu-acpi-0010-expose-acpi_checksum.patch
+Patch12: qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
+Patch13: qemu-acpi-0012-set-LPC-pm_base.patch
+Patch14: qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
 
 %description
-This package contains the OpenBIOS development utilities.
-
-There are
-* toke - an IEEE 1275-1994 compliant FCode tokenizer
-* detok - an IEEE 1275-1994 compliant FCode detokenizer
-* paflof - a forth kernel running in user space
-* an fcode bytecode evaluator running in paflof
-
-See /usr/share/doc/packages/openbios for details and examples.
-
-Authors:
---------
-    Stefan Reinauer <stepan@openbios.net>
-    Segher Boessenkool <segher@openbios.net>
+===========
+QEMU is a generic and open source machine & userspace emulator and
+virtualizer.
 
 %package bin
 Summary: bin components for the qemu-lite package.
@@ -73,7 +64,7 @@ data components for the qemu-lite package.
 
 
 %prep
-%setup -q -n qemu-2.6.0-rc1
+%setup -q -n qemu-bfc766d
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -86,47 +77,50 @@ data components for the qemu-lite package.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
+%patch14 -p1
 
 %build
-%configure --disable-static --disable-sdl \
---disable-strip \
---disable-libssh2 \
---disable-tcmalloc \
---disable-glusterfs \
---disable-seccomp \
---disable-bzip2 \
---disable-snappy \
---disable-lzo \
---disable-usb-redir \
---disable-libusb \
---disable-libnfs \
---disable-tcg-interpreter \
---disable-debug-tcg \
---disable-libiscsi \
---disable-rbd \
---disable-spice \
---enable-virtfs \
---enable-cap-ng \
---enable-attr \
---disable-linux-aio \
---disable-uuid \
+%configure --disable-static --disable-bluez \
 --disable-brlapi \
---disable-vnc-{jpeg,png,sasl} \
---disable-rdma \
---disable-bluez \
---disable-fdt \
+--disable-bzip2 \
 --disable-curl \
 --disable-curses \
+--disable-debug-tcg \
+--disable-fdt \
+--disable-glusterfs \
 --disable-gtk \
---disable-tpm \
---disable-vte \
---disable-vnc \
---disable-xen \
+--disable-libiscsi \
+--disable-libnfs \
+--disable-libssh2 \
+--disable-libusb \
+--disable-linux-aio \
+--disable-lzo \
 --disable-opengl \
---disable-slirp \
 --disable-qom-cast-debug \
+--disable-rbd \
+--disable-rdma \
+--disable-sdl \
+--disable-seccomp \
+--disable-slirp \
+--disable-snappy \
+--disable-spice \
+--disable-strip \
+--disable-tcg-interpreter \
+--disable-tcmalloc \
+--disable-tools \
+--disable-tpm \
+--disable-usb-redir \
+--disable-uuid \
+--disable-vnc \
+--disable-vnc-{jpeg,png,sasl} \
+--disable-vte \
+--disable-xen \
+--enable-attr \
+--enable-cap-ng \
 --enable-kvm \
---target-list='i386-softmmu x86_64-softmmu i386-linux-user x86_64-linux-user' \
+--enable-virtfs \
+--target-list=x86_64-softmmu \
 --extra-cflags="-fno-semantic-interposition -O3 -falign-functions=32" \
 --datadir=/usr/share/qemu-lite \
 --libdir=/usr/lib64/qemu-lite \
@@ -151,16 +145,8 @@ done
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/ivshmem-lite-client
-/usr/bin/ivshmem-lite-server
 /usr/bin/qemu-lite-ga
-/usr/bin/qemu-lite-i386
-/usr/bin/qemu-lite-img
-/usr/bin/qemu-lite-io
-/usr/bin/qemu-lite-nbd
-/usr/bin/qemu-lite-system-i386
 /usr/bin/qemu-lite-system-x86_64
-/usr/bin/qemu-lite-x86_64
 /usr/bin/virtfs-lite-proxy-helper
 /usr/libexec/qemu-lite/qemu-bridge-helper
 
