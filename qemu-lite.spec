@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 11
+Release  : 12
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Summary  : OpenBIOS development utilities
@@ -24,7 +24,6 @@ BuildRequires : libtool-dev
 BuildRequires : m4
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(libpng)
-BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
 Patch1: configure.patch
