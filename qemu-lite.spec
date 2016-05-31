@@ -4,12 +4,12 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 10
-URL      : http://git.qemu.org/qemu.git/snapshot/bfc766d38e1fae5767d43845c15c79ac8fa6d6af.tar.gz#/qemu-2.6.0.tar.gz
-Source0  : http://git.qemu.org/qemu.git/snapshot/bfc766d38e1fae5767d43845c15c79ac8fa6d6af.tar.gz#/qemu-2.6.0.tar.gz
-Summary  : No detailed summary available
+Release  : 11
+URL      : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
+Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
+Summary  : OpenBIOS development utilities
 Group    : Development/Tools
-License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ LGPL-2.0+ LGPL-2.1
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+ GPL-3.0 LGPL-2.0+ LGPL-2.1 LGPL-3.0 MIT
 Requires: qemu-lite-bin
 Requires: qemu-lite-data
 BuildRequires : attr-dev
@@ -23,6 +23,7 @@ BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : m4
 BuildRequires : numactl-dev
+BuildRequires : pkgconfig(libpng)
 BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
@@ -42,9 +43,20 @@ Patch13: qemu-acpi-0012-set-LPC-pm_base.patch
 Patch14: qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
 
 %description
-===========
-QEMU is a generic and open source machine & userspace emulator and
-virtualizer.
+This package contains the OpenBIOS development utilities.
+
+There are
+* toke - an IEEE 1275-1994 compliant FCode tokenizer
+* detok - an IEEE 1275-1994 compliant FCode detokenizer
+* paflof - a forth kernel running in user space
+* an fcode bytecode evaluator running in paflof
+
+See /usr/share/doc/packages/openbios for details and examples.
+
+Authors:
+--------
+    Stefan Reinauer <stepan@openbios.net>
+    Segher Boessenkool <segher@openbios.net>
 
 %package bin
 Summary: bin components for the qemu-lite package.
@@ -64,7 +76,7 @@ data components for the qemu-lite package.
 
 
 %prep
-%setup -q -n qemu-bfc766d
+%setup -q -n qemu-2.6.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
