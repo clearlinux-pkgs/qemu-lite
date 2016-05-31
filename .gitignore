@@ -1,3 +1,5 @@
 results
 qemu-*.tar.gz
 qemu-*.tar.bz2
+mock_build.log
+mock_srpm.log
