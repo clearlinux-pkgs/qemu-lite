@@ -12,3 +12,4 @@ qemu-acpi-0010-expose-acpi_checksum.patch
 qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
 qemu-acpi-0012-set-LPC-pm_base.patch
 qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
+qemu-acpi-0014-race-conditions-fix.patch
