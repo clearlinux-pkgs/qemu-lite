@@ -1,0 +1,26 @@
+From 2fe13a8b28e462727dc248b1ac23fda45a7d8025 Mon Sep 17 00:00:00 2001
+From: Anthony Xu <anthony.xu@intel.com>
+Date: Thu, 16 Jun 2016 20:09:32 -0500
+Subject: [PATCH] Reduce pci bus number
+
+---
+ hw/i386/acpi-build.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
+index 877450b..549589e 100644
+--- a/hw/i386/acpi-build.c
++++ b/hw/i386/acpi-build.c
+@@ -2658,7 +2658,8 @@ static bool acpi_get_mcfg(AcpiMcfgInfo *mcfg)
+ 
+     o = object_property_get_qobject(pci_host, PCIE_HOST_MCFG_SIZE, NULL);
+     assert(o);
+-    mcfg->mcfg_size = qint_get_int(qobject_to_qint(o));
++//    mcfg->mcfg_size = qint_get_int(qobject_to_qint(o));
++    mcfg->mcfg_size = 1 << PCIE_MMCFG_BUS_BIT;
+     qobject_decref(o);
+     return true;
+ }
+-- 
+2.4.11
+
