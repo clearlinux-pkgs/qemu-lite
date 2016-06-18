@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 15
+Release  : 16
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Summary  : OpenBIOS development utilities
@@ -40,9 +40,8 @@ Patch11: qemu-acpi-0010-expose-acpi_checksum.patch
 Patch12: qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
 Patch13: qemu-acpi-0012-set-LPC-pm_base.patch
 Patch14: qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
-Patch15: qemu-acpi-0014-race-conditions-fix.patch
-Patch16: dont-preallocate-memory-gor-guest-nvdimm.patch
-Patch17: qemu-0015-Reduce-pci-bus-number.patch
+Patch15: dont-preallocate-memory-gor-guest-nvdimm.patch
+Patch16: qemu-0015-Reduce-pci-bus-number.patch
 
 %description
 This package contains the OpenBIOS development utilities.
@@ -95,7 +94,6 @@ data components for the qemu-lite package.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
-%patch17 -p1
 
 %build
 %configure --disable-static --disable-bluez \
