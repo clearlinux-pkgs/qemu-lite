@@ -6,7 +6,6 @@ qemu-acpi-0004-boot-uncompressed-kernel.patch
 qemu-acpi-0005-add-pc-lite-platform.patch
 qemu-acpi-0006-make-platform-configurable.patch
 qemu-acpi-0007-remove-find_i440fx.patch
-qemu-acpi-0008-vcpu-initialization-in-parallel.patch
 qemu-acpi-0009-expose-struct-BiosLinkerLoaderEntry.patch
 qemu-acpi-0010-expose-acpi_checksum.patch
 qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
