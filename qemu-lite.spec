@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 2.6.0
-Release  : 16
+Release  : 17
 URL      : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Source0  : http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
 Summary  : OpenBIOS development utilities
@@ -34,14 +34,13 @@ Patch5: qemu-acpi-0004-boot-uncompressed-kernel.patch
 Patch6: qemu-acpi-0005-add-pc-lite-platform.patch
 Patch7: qemu-acpi-0006-make-platform-configurable.patch
 Patch8: qemu-acpi-0007-remove-find_i440fx.patch
-Patch9: qemu-acpi-0008-vcpu-initialization-in-parallel.patch
-Patch10: qemu-acpi-0009-expose-struct-BiosLinkerLoaderEntry.patch
-Patch11: qemu-acpi-0010-expose-acpi_checksum.patch
-Patch12: qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
-Patch13: qemu-acpi-0012-set-LPC-pm_base.patch
-Patch14: qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
-Patch15: dont-preallocate-memory-gor-guest-nvdimm.patch
-Patch16: qemu-0015-Reduce-pci-bus-number.patch
+Patch9: qemu-acpi-0009-expose-struct-BiosLinkerLoaderEntry.patch
+Patch10: qemu-acpi-0010-expose-acpi_checksum.patch
+Patch11: qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
+Patch12: qemu-acpi-0012-set-LPC-pm_base.patch
+Patch13: qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
+Patch14: dont-preallocate-memory-gor-guest-nvdimm.patch
+Patch15: qemu-0015-Reduce-pci-bus-number.patch
 
 %description
 This package contains the OpenBIOS development utilities.
@@ -93,9 +92,9 @@ data components for the qemu-lite package.
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
-%patch16 -p1
 
 %build
+export LANG=C
 %configure --disable-static --disable-bluez \
 --disable-brlapi \
 --disable-bzip2 \
