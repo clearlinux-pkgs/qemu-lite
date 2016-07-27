@@ -1,15 +1,1 @@
 configure.patch
-qemu-acpi-0001-cache-cpuid.patch
-qemu-acpi-0002-add-pc-full.patch
-qemu-acpi-0003-load-from-kernel.patch
-qemu-acpi-0004-boot-uncompressed-kernel.patch
-qemu-acpi-0005-add-pc-lite-platform.patch
-qemu-acpi-0006-make-platform-configurable.patch
-qemu-acpi-0007-remove-find_i440fx.patch
-qemu-acpi-0009-expose-struct-BiosLinkerLoaderEntry.patch
-qemu-acpi-0010-expose-acpi_checksum.patch
-qemu-acpi-0011-patch-guest-ACPI-in-pc-lite.patch
-qemu-acpi-0012-set-LPC-pm_base.patch
-qemu-acpi-0013-create-MCFG-in-guest-ACPI.patch
-dont-preallocate-memory-gor-guest-nvdimm.patch
-qemu-0015-Reduce-pci-bus-number.patch

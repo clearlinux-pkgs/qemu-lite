@@ -1,5 +1,5 @@
 PKG_NAME := qemu-lite
-URL := http://wiki.qemu-project.org/download/qemu-2.6.0.tar.bz2
+URL := https://github.com/01org/qemu-lite/archive/3f889234fcd31ac4119aae57559b1286e09e1568.tar.gz
 ARCHIVES :=
 
 include ../common/Makefile.common
