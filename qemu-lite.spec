@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 3f889234fcd31ac4119aae57559b1286e09e1568
-Release  : 19
+Release  : 20
 URL      : https://github.com/01org/qemu-lite/archive/3f889234fcd31ac4119aae57559b1286e09e1568.tar.gz
 Source0  : https://github.com/01org/qemu-lite/archive/3f889234fcd31ac4119aae57559b1286e09e1568.tar.gz
 Summary  : No detailed summary available
@@ -27,6 +27,7 @@ BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
 Patch1: configure.patch
+Patch2: 9p-getattr-use-fstat-if-we-have-a-fd.patch
 
 %description
 ===========
@@ -53,6 +54,7 @@ data components for the qemu-lite package.
 %prep
 %setup -q -n qemu-lite-3f889234fcd31ac4119aae57559b1286e09e1568
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
