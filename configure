@@ -30,7 +30,9 @@
 --disable-usb-redir
 --disable-uuid
 --disable-vnc
---disable-vnc-{jpeg,png,sasl}
+--disable-vnc-jpeg
+--disable-vnc-png
+--disable-vnc-sasl
 --disable-vte
 --disable-xen
 --enable-attr
