@@ -1,2 +1,1 @@
 configure.patch
-9p-getattr-use-fstat-if-we-have-a-fd.patch
