@@ -44,3 +44,4 @@
 --datadir=/usr/share/qemu-lite
 --libdir=/usr/lib64/qemu-lite
 --libexecdir=/usr/libexec/qemu-lite
+--enable-vhost-net

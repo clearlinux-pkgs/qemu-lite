@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : e92ce82614409b7e640db5c43fa42207f4b9ff62
-Release  : 22
+Release  : 23
 URL      : https://github.com/01org/qemu-lite/archive/e92ce82614409b7e640db5c43fa42207f4b9ff62.tar.gz
 Source0  : https://github.com/01org/qemu-lite/archive/e92ce82614409b7e640db5c43fa42207f4b9ff62.tar.gz
 Summary  : No detailed summary available
@@ -101,7 +101,8 @@ export LANG=C
 --extra-cflags="-fno-semantic-interposition -O3 -falign-functions=32" \
 --datadir=/usr/share/qemu-lite \
 --libdir=/usr/lib64/qemu-lite \
---libexecdir=/usr/libexec/qemu-lite
+--libexecdir=/usr/libexec/qemu-lite \
+--enable-vhost-net
 make V=1  %{?_smp_mflags}
 
 %install
