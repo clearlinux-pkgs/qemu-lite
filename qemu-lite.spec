@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : e92ce82614409b7e640db5c43fa42207f4b9ff62
-Release  : 23
+Release  : 24
 URL      : https://github.com/01org/qemu-lite/archive/e92ce82614409b7e640db5c43fa42207f4b9ff62.tar.gz
 Source0  : https://github.com/01org/qemu-lite/archive/e92ce82614409b7e640db5c43fa42207f4b9ff62.tar.gz
 Summary  : No detailed summary available
@@ -27,6 +27,7 @@ BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
 Patch1: configure.patch
+Patch2: 0001-removing-coroutines-of-9p-to-increase-the-I-O-perfor.patch
 
 %description
 ===========
@@ -53,6 +54,7 @@ data components for the qemu-lite package.
 %prep
 %setup -q -n qemu-lite-e92ce82614409b7e640db5c43fa42207f4b9ff62
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
