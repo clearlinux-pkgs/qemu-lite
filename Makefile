@@ -1,5 +1,5 @@
 PKG_NAME := qemu-lite
-URL := https://github.com/01org/qemu-lite/archive/e92ce82614409b7e640db5c43fa42207f4b9ff62.tar.gz
+URL := https://github.com/01org/qemu-lite/archive/8c1077c1a01077384177c6952130ca1b15c01011.tar.gz
 ARCHIVES :=
 
 include ../common/Makefile.common
