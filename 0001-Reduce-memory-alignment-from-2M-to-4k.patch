@@ -1,0 +1,54 @@
+From 85f254d009127fa3cedd041142386538033fcc4c Mon Sep 17 00:00:00 2001
+From: Geronimo Orozco <geronimo.orozco@intel.com>
+Date: Fri, 21 Oct 2016 12:04:12 -0500
+Subject: [PATCH] Reduce memory alignment from 2M to 4k
+
+Commit d2f39ad "exec.c: Ensure right alignment also for file backed
+ram" added an additional alignment requirement besides to the previous
+page size for the size of the backend file. On x86, the alignment
+requirement for the size of the backend file is changed from 4KB in
+QEMU 2.6 to 2MB in QEMU 2.7.
+
+This change immediately breaks the usage of "-object memory-backend-file,...,size=$SIZE"
+on x86, where $SIZE is multiple of 4KB but not 2MB. It works on QEMU 2.6.
+Could this be considered as a regression?
+
+The commit message shows it's for s390. I'm wondering whether the same
+regression happens on s390 and ARM. If not, could I fix the regression
+on x86 by keeping using the original alignment only on x86, e.g.
+
+modified   exec.c
+@@ -1254,7 +1254,11 @@ static void *file_ram_alloc(RAMBlock *block,
+     }
+     block->page_size = qemu_fd_getpagesize(fd);
++#if defined(__x86_64__) || defined(__i386__)
++    block->mr->align = block->page_size;
++#else
+     block->mr->align = MAX(block->page_size, QEMU_VMALLOC_ALIGN);
++#endif
+     if (memory < block->page_size) {
+         error_setg(errp, "memory size 0x" RAM_ADDR_FMT " must be equal to "
+
+--
+Suggested by Xu, Anthony <anthony.xu@intel.com> and Zhang, Haozhong
+<haozhong.zhang@intel.com>
+---
+ exec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/exec.c b/exec.c
+index 8ffde75..2228175 100644
+--- a/exec.c
++++ b/exec.c
+@@ -1284,7 +1284,7 @@ static void *file_ram_alloc(RAMBlock *block,
+     }
+ 
+     page_size = qemu_fd_getpagesize(fd);
+-    block->mr->align = MAX(page_size, QEMU_VMALLOC_ALIGN);
++    block->mr->align = page_size;
+ 
+     if (memory < page_size) {
+         error_setg(errp, "memory size 0x" RAM_ADDR_FMT " must be equal to "
+-- 
+2.10.1
+
