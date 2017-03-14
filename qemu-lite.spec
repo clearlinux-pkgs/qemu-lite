@@ -26,6 +26,7 @@ BuildRequires : numactl-dev
 BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
+BuildRequires : python3-dev
 Patch1: configure.patch
 
 %description
@@ -102,6 +103,7 @@ export LANG=C
 --datadir=/usr/share/qemu-lite \
 --libdir=/usr/lib64/qemu-lite \
 --libexecdir=/usr/libexec/qemu-lite \
+--python=/usr/bin/python \
 --enable-vhost-net
 make V=1  %{?_smp_mflags}
 
