@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 741f430a960b5b67745670e8270db91aeb083c5f
-Release  : 28
+Release  : 29
 URL      : https://github.com/01org/qemu-lite/archive/741f430a960b5b67745670e8270db91aeb083c5f.tar.gz
 Source0  : https://github.com/01org/qemu-lite/archive/741f430a960b5b67745670e8270db91aeb083c5f.tar.gz
 Summary  : No detailed summary available
