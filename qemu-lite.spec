@@ -4,7 +4,7 @@
 #
 Name     : qemu-lite
 Version  : 741f430a960b5b67745670e8270db91aeb083c5f
-Release  : 30
+Release  : 31
 URL      : https://github.com/01org/qemu-lite/archive/741f430a960b5b67745670e8270db91aeb083c5f.tar.gz
 Source0  : https://github.com/01org/qemu-lite/archive/741f430a960b5b67745670e8270db91aeb083c5f.tar.gz
 Summary  : No detailed summary available
@@ -26,7 +26,6 @@ BuildRequires : numactl-dev
 BuildRequires : pkgconfig(pixman-1)
 BuildRequires : python-dev
 BuildRequires : zlib-dev
-BuildRequires : python3-dev
 Patch1: configure.patch
 
 %description
@@ -56,8 +55,11 @@ data components for the qemu-lite package.
 %patch1 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1488915386
+export SOURCE_DATE_EPOCH=1517701721
 %configure --disable-static --disable-bluez \
 --disable-brlapi \
 --disable-bzip2 \
@@ -104,12 +106,12 @@ export SOURCE_DATE_EPOCH=1488915386
 --datadir=/usr/share/qemu-lite \
 --libdir=/usr/lib64/qemu-lite \
 --libexecdir=/usr/libexec/qemu-lite \
---python=/usr/bin/python \
---enable-vhost-net
-make V=1  %{?_smp_mflags}
+--enable-vhost-net \
+--python=/usr/bin/python2
+make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1488915386
+export SOURCE_DATE_EPOCH=1517701721
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content

@@ -45,3 +45,4 @@
 --libdir=/usr/lib64/qemu-lite
 --libexecdir=/usr/libexec/qemu-lite
 --enable-vhost-net
+--python=/usr/bin/python2
